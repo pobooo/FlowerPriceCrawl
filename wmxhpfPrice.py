@@ -60,9 +60,11 @@ def getall():
     mainpage = requests.get(url).text
     soup = bs(mainpage, 'xml')
     list = soup.find_all('tr',class_="")
+    print(len(list))
     for tr in list:
         td = tr.find_all('td')
-        Name = td[0].a.string +'('+ td[2].string+')'+'('+ td[3].string.replace('/','-')+')'
+        Name = td[0].a.string +'('+ td[2].string+')'+'('+ td[3].string+')'+'.txt'
+        Name = Name.replace('/','-')
         Id = re.findall(r'\d+',td[0].a['href'])
         if os.path.exists(Name):
             continue
