@@ -1,5 +1,6 @@
 import requests
 import re
+import os
 from bs4 import BeautifulSoup as bs
 class Found(Exception):
     pass
@@ -63,6 +64,8 @@ def getall():
         td = tr.find_all('td')
         Name = td[0].a.string +'('+ td[2].string+')'+'('+ td[3].string.replace('/','-')+')'
         Id = re.findall(r'\d+',td[0].a['href'])
+        if os.path.exists(Name):
+            continue
         getFlowerPrice(Id[0], Name)
         print(Name)
 
